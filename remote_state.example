@@ -1,0 +1,11 @@
+data "terraform_remote_state" "backend" {
+  backend = "remote"
+
+  config = {
+    organization = "acmecorp"
+    workspaces = {
+      name = "demo-snow-tf-aws-azure-backend"
+    }
+  }
+}
+
