@@ -52,9 +52,8 @@ resource "aws_security_group" "aws-vm" {
 
 
 resource "aws_instance" "aws-vm" {
-  count = var.vm_count
   subnet_id = local.vpc_pubsubnet_id
-  ami = data.aws_ami.ami_os_filter.id
+  ami = "ami-0113cc4fcada72df1"
   instance_type = var.aws_instance_type
   key_name = var.aws_keyname
 
@@ -67,14 +66,16 @@ resource "aws_instance" "aws-vm" {
 
   provisioner "remote-exec" {
     connection {
-      host = aws_instance.aws-vm[count.index]
+      host = aws_instance.aws-vm.public_ip
       type = "ssh"
       user = var.aws_sshuser
       timeout = "3m"
       private_key = var.aws_privatekey
     }
     inline = [
-      "sudo yum install -y yum-utils && sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
+      "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
+      "sudo hostnamectl set-hostname webserver-01",
+      "sudo systemctl start consul",
       "sudo yum install -y docker-ce docker-ce-cli containerd.io && sudo systemctl start docker",
       "sudo docker run --name nginx -d -p 8888:80 nginx"
     ]
