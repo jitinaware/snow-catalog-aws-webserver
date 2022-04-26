@@ -57,11 +57,6 @@ resource "aws_instance" "aws-vm" {
   instance_type = var.aws_instance_type
   key_name = var.aws_keyname
 
-  ebs_block_device {
-    device_name = "/dev/sda1"
-    volume_size = 100
-  }
-
   vpc_security_group_ids = [aws_security_group.aws-vm.id]
 
   provisioner "remote-exec" {
