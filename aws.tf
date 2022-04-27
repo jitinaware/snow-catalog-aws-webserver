@@ -81,6 +81,8 @@ resource "aws_instance" "aws-vm" {
     {
       department = var.department
       purpose = var.purpose
+      Purpose = ""
+      Terraform = ""
     }
   )
 
