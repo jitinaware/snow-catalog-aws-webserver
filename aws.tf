@@ -71,14 +71,16 @@ resource "aws_instance" "aws-vm" {
       "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
       "sudo hostnamectl set-hostname webserver-01",
       "sudo systemctl start consul",
-      "sudo yum install -y docker-ce docker-ce-cli containerd.io && sudo systemctl start docker",
-      "sudo docker run --name nginx -d -p 8888:80 nginx"
+      "sudo shutdown -r now"
+      #"sudo yum install -y docker-ce docker-ce-cli containerd.io && sudo systemctl start docker",
+      #"sudo docker run --name nginx -d -p 8888:80 nginx"
     ]
   }
   tags = merge(
-    #var.resource_tags,
+    var.resource_tags,
     {
-      Name = "aws-vm"
+      department = var.department
+      purpose = var.purpose
     }
   )
 

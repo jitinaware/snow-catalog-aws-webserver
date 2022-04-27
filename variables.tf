@@ -17,6 +17,27 @@ variable "vm_count" {
   default = "1"
 }
 
+variable "department" {
+  type        = string
+  description = "Department requesting the infrastructure"
+  default     = ""
+}
+
+variable "purpose" {
+  type        = string
+  description = "Purpose of the infrastructure"
+  default     = ""
+}
+
+variable "resource_tags" {
+  description = "Tags to set for all resources"
+  type = map(string)
+  default = {
+    department = ""
+    purpose = ""
+  }
+}
+
 variable "aws_allow_cidr_range" {
     type = string
     default = "0.0.0.0/0"
