@@ -38,14 +38,25 @@ resource "aws_security_group" "aws-vm" {
   },
    {
      cidr_blocks      = [ var.aws_allow_cidr_range, ]
-     description      = "web"
-     from_port        = 8888
+     description      = "port 80"
+     from_port        = 80
      ipv6_cidr_blocks = []
      prefix_list_ids  = []
      protocol         = "tcp"
      security_groups  = []
      self             = false
-     to_port          = 8888
+     to_port          = 80
+  },
+   {
+     cidr_blocks      = [ var.aws_allow_cidr_range, ]
+     description      = "port 443"
+     from_port        = 443
+     ipv6_cidr_blocks = []
+     prefix_list_ids  = []
+     protocol         = "tcp"
+     security_groups  = []
+     self             = false
+     to_port          = 443
   }
   ]
 }
@@ -53,7 +64,7 @@ resource "aws_security_group" "aws-vm" {
 
 resource "aws_instance" "aws-vm" {
   subnet_id = local.vpc_pubsubnet_id
-  ami = "ami-01254366fc198849c"
+  ami = "ami-011b910522db6cac9"
   instance_type = var.aws_instance_type
   key_name = var.aws_keyname
 
