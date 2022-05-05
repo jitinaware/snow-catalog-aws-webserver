@@ -82,7 +82,7 @@ resource "aws_instance" "aws-vm" {
       "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
       "sudo hostnamectl set-hostname webserver-01",
       "sudo systemctl start consul",
-      "sudo shutdown -r now"
+      "sudo shutdown -r +1"
       #"sudo yum install -y docker-ce docker-ce-cli containerd.io && sudo systemctl start docker",
       #"sudo docker run --name nginx -d -p 8888:80 nginx"
     ]
