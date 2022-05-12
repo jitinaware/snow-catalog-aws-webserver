@@ -81,6 +81,7 @@ resource "aws_instance" "aws-vm" {
     inline = [
       "sudo hostnamectl set-hostname webserver-01",
       "sudo systemctl start consul",
+      "sudo chmod +x /tmp/consul-tpl/setup-consul-tpl.sh",
       "sudo /tmp/consul-tpl/setup-consul-tpl.sh",
       "sudo shutdown -r +1"
     ]
