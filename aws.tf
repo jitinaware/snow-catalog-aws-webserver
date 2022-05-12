@@ -80,7 +80,9 @@ resource "aws_instance" "aws-vm" {
     }
     inline = [
       "sudo hostnamectl set-hostname webserver-01",
+      "sudo export SELF_PUBLIC_IP=$(curl http://169.254.169.254/latest/meta-data/public-ipv4) && sudo sed -i -e \"s/^<ip_sans>.*/VAULT_ROLE_ID=$SELF_PUBLIC_IP/g\" /etc/consul-template.d/hashi-cert.tpl && sudo sed -i -e \"s/^<ip_sans>.*/VAULT_ROLE_ID=$SELF_PUBLIC_IP/g\" /etc/consul-template.d/hashi-key.tpl",
       "sudo systemctl start consul",
+      "sudo systemctl start consul-template.service",
       "sudo shutdown -r +1"
     ]
   }
