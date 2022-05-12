@@ -64,7 +64,7 @@ resource "aws_security_group" "aws-vm" {
 
 resource "aws_instance" "aws-vm" {
   subnet_id = local.vpc_pubsubnet_id
-  ami = "ami-052560092b0f62e84"
+  ami = data.aws_ami.ami_os_filter.id
   instance_type = var.aws_instance_type
   key_name = var.aws_keyname
 
