@@ -17,10 +17,6 @@ provider "aws" {
   default_tags {
     tags = {
       Owner       = var.owner
-      Purpose     = "TFE-SNOW-Demo"
-      Terraform   = true
-      Environment = "development"
-      DoNotDelete = true
     }
   }
 }

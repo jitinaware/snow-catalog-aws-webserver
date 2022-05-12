@@ -45,7 +45,7 @@ variable "aws_allow_cidr_range" {
 
 variable "amifilter_osname" {
     type = string
-    default = "CentOS 7.9*"
+    default = "*jaware*"
 }
 
 variable "amifilter_osarch" {
@@ -60,7 +60,7 @@ variable "amifilter_osvirtualizationtype" {
 
 variable "amifilter_owner" {
     type = string
-    default = "125523088429" # CentOS 7.9
+    default = "711129375688" # CentOS 7.9
 }
 
 variable "aws_instance_type" {

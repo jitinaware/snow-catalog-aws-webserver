@@ -64,7 +64,7 @@ resource "aws_security_group" "aws-vm" {
 
 resource "aws_instance" "aws-vm" {
   subnet_id = local.vpc_pubsubnet_id
-  ami = "ami-054d5a4963ed4e527"
+  ami = data.aws_ami.ami_os_filter.id
   instance_type = var.aws_instance_type
   key_name = var.aws_keyname
 
@@ -79,12 +79,9 @@ resource "aws_instance" "aws-vm" {
       private_key = var.aws_privatekey
     }
     inline = [
-      "sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo",
       "sudo hostnamectl set-hostname webserver-01",
       "sudo systemctl start consul",
       "sudo shutdown -r +1"
-      #"sudo yum install -y docker-ce docker-ce-cli containerd.io && sudo systemctl start docker",
-      #"sudo docker run --name nginx -d -p 8888:80 nginx"
     ]
   }
   tags = merge(
@@ -92,8 +89,6 @@ resource "aws_instance" "aws-vm" {
     {
       department = var.department
       purpose = var.purpose
-      Purpose = ""
-      Terraform = ""
     }
   )
 
