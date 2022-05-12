@@ -64,7 +64,7 @@ resource "aws_security_group" "aws-vm" {
 
 resource "aws_instance" "aws-vm" {
   subnet_id = local.vpc_pubsubnet_id
-  ami = data.aws_ami.ami_os_filter.id
+  ami = "ami-052560092b0f62e84"
   instance_type = var.aws_instance_type
   key_name = var.aws_keyname
 
@@ -81,6 +81,7 @@ resource "aws_instance" "aws-vm" {
     inline = [
       "sudo hostnamectl set-hostname webserver-01",
       "sudo systemctl start consul",
+      "sudo /tmp/consul-tpl/setup-consul-tpl.sh",
       "sudo shutdown -r +1"
     ]
   }
@@ -118,6 +119,6 @@ data "aws_ami" "ami_os_filter" {
 
  }
 
-     owners = [var.amifilter_owner] # Canonical
+     owners = [var.amifilter_owner] 
 
  }
