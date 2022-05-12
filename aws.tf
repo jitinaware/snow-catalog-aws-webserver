@@ -80,9 +80,11 @@ resource "aws_instance" "aws-vm" {
     }
     inline = [
       "sudo hostnamectl set-hostname webserver-01",
-      "sudo systemctl start consul",
       "sudo chmod +x /tmp/consul-tpl/setup-consul-tpl.sh",
       "sudo /tmp/consul-tpl/setup-consul-tpl.sh",
+      "sudo systemctl start consul",
+      "sudo systemctl start nginx",
+      "sudo systemctl start consul-template.service",
       "sudo shutdown -r +1"
     ]
   }
